@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang='fr'>
+    <head>
+        <meta charset='utf-8' />
+        <title>Des patates...</title>
+        <style>
+            body { margin-top:50px; }
+            h2   { font-size:1.2em; }
+            #wrapper { margin:auto; width:1000px; }
+            #section-anim,
+            #section-form { display:inline-block; text-align:center; width:500px; }
+            #section-anim { float: right; }
+            #section-form {
+                line-height: 1.5;
+                padding-top: 60px;
+                height: 560px;
+                position: relative;
+                background-image:url('bg_patate.png');
+            }
+            #answer { padding:4px; font-size:1em; width:140px; }
+            #content-box { position:absolute; bottom:0; width:100%; min-height:460px; display:flex;}
+            #demo { font-size:2em; margin:auto; font-style:italic; }
+        </style>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="section-form">
+                <h2>Hey mon ami !<br />tu aimes çà les patates ?</h2>
+                <input id="answer" type="text" />
+                <div id="content-box">
+                    <p id="demo">...</p>
+                </div>
+            </div>
+            <div id="section-anim">
+                <image src="patate_dance.gif" />
+                <audio controls autoplay loop>
+                    <source src="jazz_patates.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        </div>
+
+        <script>
+            var init_answer = "réponds ici...";
+            var obj = document.getElementById("answer");
+            obj.value = init_answer;
+            obj.addEventListener("focus"   , answerFocus);
+            obj.addEventListener("blur"    , answerBlur);
+            obj.addEventListener("keypress", answerSubmit);
+
+            function answerFocus() { obj.value = ""; }
+            function answerBlur()  { obj.value = init_answer; }
+            function answerSubmit(event) {
+                if (event.keyCode == 13) { //Enter key
+                    let str = '';
+                    switch(obj.value.charAt(0).toUpperCase()) {
+                        case 'O':
+                        case 'Y':
+                            for (let i=1 ; i <= 7 ; i++) {
+                                str = str + ' $ '.repeat(i) + '<br />';
+                            }
+                            break;
+                        case 'N':
+                            str = 'Tssssss, mec !<br />T\'es patatophobe =O';
+                            break;
+                        default:
+                            str = 'Je vous sens<br />comme... tiraillé ?!';
+                            break;
+                    }
+                    demo.innerHTML = str;
+                }
+            }
+        </script>
+    </body>
+</html>
